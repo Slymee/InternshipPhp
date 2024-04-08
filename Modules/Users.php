@@ -2,6 +2,7 @@
 namespace InternshipPhp\Modules;
 
 use Exception;
+use PDO;
 use InternshipPhp\Partials\Database;
 
 require_once('../Partials/Database.php');
@@ -76,8 +77,13 @@ class Users{
             throw new Exception('All fields are required!');
         }
 
+        $userSQL = "SELECT * FROM users WHERE username = :username OR email = :email";
+        $statement = $conn->prepare($userSQL);
+        $statement->bindParam(':username', $usernameOrEmail);
+        $statement->bindParam(':email', $usernameOrEmail);
+        $statement->execute();
 
-        $user = $db->query("SELECT * FROM users WHERE username = ':identifier' OR email = ':identifier', [':identifier' => $usernameOrEmail]")[0];
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
 
         if($user && password_verify($password, $user['password']))
         {
