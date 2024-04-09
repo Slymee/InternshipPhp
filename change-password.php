@@ -1,11 +1,13 @@
 <?php
     session_start();
     require('./Partials/check-login.php');
+
     if(!isLoggedIn())
     {
         $_SESSION['message'] = "Please Login to continue.";
         header('location: ./login-register.php');
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">

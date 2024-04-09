@@ -95,9 +95,43 @@ class Users{
         throw new Exception('Invalid Credentials!');
     }
 
-    public static function changePassword($oldPassword, $newPassword, $confirmPassword)
+    public static function changePassword($oldPassword, $newPassword, $confirmPassword, $username)
     {
         $db = new Database();
         $conn = $db->getConnection();
+
+        if(empty($oldPassword) || empty($newPassword) || empty($confirmPassword))
+        {
+            $db->closeConnection();
+            throw new Exception('All fields are required!');
+        }
+
+        if($newPassword != $confirmPassword)
+        {
+            $db->closeConnection();
+            throw new Exception('Password mismatch!');
+        }
+
+        $passwordSQL = "SELECT password FROM users WHERE username = :username";
+        $selectStatement = $conn->prepare($passwordSQL);
+        $selectStatement->bindParam(':username', $username);
+        $selectStatement->execute();
+
+        $user = $selectStatement->fetch(PDO::FETCH_ASSOC);
+
+        echo $user['password'];
+        die();
+
+        if(!password_verify($oldPassword, $user['password']))
+        {
+            $db->closeConnection();
+            throw new Exception('Incorrect old Password!');
+        }
+
+        $passwordUpdateSQL = "UPDATE users SET password = :newPassword WHERE users = :username";
+        $updateStatement = $conn->prepare($passwordUpdateSQL);
+        $updateStatement->bindParam(':newPassword', $newPassword);
+        $updateStatement->bindParam(':username', $username);
+        $updateStatement->execute();
     }
 }
