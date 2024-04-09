@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../../Resources/css/login-register.css">
+  <link rel="stylesheet" href="./Resources/css/login-register.css">
   <title>Login & Registration Form</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
     <input type="checkbox" id="check">
     <div class="login form">
       <header>Login</header>
-      <form action="../../Partials/login-user.php" method="post">
+      <form action="./Partials/login-user.php" method="post">
         <input type="text" placeholder="Enter your email or username" name="username_or_email">
         <input type="password" placeholder="Enter your password" name="password">
         <a href="#">Forgot password?</a>
@@ -31,7 +31,7 @@
     </div>
     <div class="registration form">
       <header>Signup</header>
-      <form action="../../Partials/register-user.php" method="post">
+      <form action="./Partials/register-user.php" method="post">
         <input type="text" placeholder="Enter your username" name="username" id="">
         <input type="text" placeholder="Enter your email" name="email">
         <input type="password" placeholder="Create a password" name="password">

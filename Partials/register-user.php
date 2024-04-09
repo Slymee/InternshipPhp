@@ -8,9 +8,9 @@ session_start();
     try{
         Users::register($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
         $_SESSION['message'] = 'User Registered';
-        header('Location: ../Resources/view/login-register.php');
+        header('Location: ../login-register.php');
     }catch (Exception $e){
         $_SESSION['message'] = 'Registration failed: '. $e->getMessage();
-        header('Location: ../Resources/view/login-register.php');
+        header('Location: ../login-register.php');
     }
 ?>
