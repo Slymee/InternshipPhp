@@ -94,4 +94,10 @@ class Users{
         $db->closeConnection();
         throw new Exception('Invalid Credentials!');
     }
+
+    public static function changePassword($oldPassword, $newPassword, $confirmPassword)
+    {
+        $db = new Database();
+        $conn = $db->getConnection();
+    }
 }

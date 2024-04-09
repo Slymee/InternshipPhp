@@ -1,5 +1,5 @@
 <nav class="navigation-bar">
-    <div class="brand-container">Diary Entry</div>
+    <div class="brand-container"><span>Diary Entry</span></div>
     <div class="navigation-list">
         <ul>
             <li>Home</li>
@@ -8,7 +8,7 @@
             <li class="dropdown">
                     <input type="button" value="<?php echo $_SESSION['user'];?>" onclick="myFunction()" class="dropbtn">
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="#home">Settings</a>
+                        <a href="./change-password.php">Change Password</a>
                         <a href="./Partials/logout.php">Logout</a>
                     </div>
             </li>

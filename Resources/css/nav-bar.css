@@ -50,6 +50,12 @@
     font-weight: bold;
 }
 
+.brand-container>span{
+    padding: 10px;
+    letter-spacing: 1px;
+    font-size: 130%;
+}
+
 
 
 /* .dropdown {

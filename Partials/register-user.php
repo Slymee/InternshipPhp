@@ -2,7 +2,7 @@
 
 use InternshipPhp\Modules\Users;
 
-session_start();
+    session_start();
     require_once('../Modules/Users.php');
 
     try{
