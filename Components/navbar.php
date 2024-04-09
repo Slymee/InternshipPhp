@@ -5,7 +5,33 @@
             <li>Home</li>
             <li>Profile</li>
             <li>About Us</li>
-            <li>Settings</li>
+            <li class="dropdown">
+                    <input type="button" value="<?php echo $_SESSION['user'];?>" onclick="myFunction()" class="dropbtn">
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="#home">Settings</a>
+                        <a href="./Partials/logout.php">Logout</a>
+                    </div>
+            </li>
         </ul>
     </div>
 </nav>
+
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
