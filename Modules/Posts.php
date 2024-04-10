@@ -50,4 +50,11 @@ class Posts{
 
         $db->closeConnection();
     }
+
+
+    
+    public static function update()
+    {
+
+    }
 }

@@ -3,7 +3,7 @@
     <div class="navigation-list">
         <ul>
             <li><a href="./index.php" style="text-decoration: none; color: #0e39a0;">Home</a></li>
-            <li>Profile</li>
+            <li><a href="./profile.php" style="text-decoration: none; color: #0e39a0;">Profile</a></li>
             <li>About Us</li>
             <li class="dropdown">
                     <input type="button" value="<?php echo $_SESSION['user'];?>" onclick="myFunction()" class="dropbtn">
