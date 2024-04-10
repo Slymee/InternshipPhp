@@ -5,7 +5,7 @@
     require_once('../Modules/Users.php');
 
     try{
-        Users::changePassword($_POST['old_password'], $_POST['new_password'], $_POST['conirm_password'], $_POST['username']);
+        Users::changePassword($_POST['old_password'], $_POST['new_password'], $_POST['confirm_password'], $_POST['username']);
         $_SESSION['message'] = 'Password Updated.';
         header('Location: ../change-password.php');
     }catch (Exception $e){

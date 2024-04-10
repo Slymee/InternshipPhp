@@ -119,19 +119,27 @@ class Users{
 
         $user = $selectStatement->fetch(PDO::FETCH_ASSOC);
 
-        echo $user['password'];
-        die();
-
         if(!password_verify($oldPassword, $user['password']))
         {
             $db->closeConnection();
             throw new Exception('Incorrect old Password!');
         }
 
-        $passwordUpdateSQL = "UPDATE users SET password = :newPassword WHERE users = :username";
+        if(password_verify($newPassword, $user['password']))
+        {
+            $db->closeConnection();
+            throw new Exception("Old password can't be new password!");
+        }
+
+        $passwordUpdateSQL = "UPDATE users SET password = :newPassword WHERE username = :username";
         $updateStatement = $conn->prepare($passwordUpdateSQL);
         $updateStatement->bindParam(':newPassword', $newPassword);
         $updateStatement->bindParam(':username', $username);
+
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
         $updateStatement->execute();
+
+        $db->closeConnection();
     }
 }
