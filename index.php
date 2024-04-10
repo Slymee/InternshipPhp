@@ -25,7 +25,7 @@
             </div>
             <form action="./Partials/create-entry.php" method="post">
                 <input type="text" placeholder="Entry Title" name="entry_title">
-                <input type="datetime-local" name="datetime" id="">
+                <input type="date" name="date" id="">
                 <textarea name="entry_content" placeholder="Entry here"></textarea>
                 <input type="hidden" name="username" value="<?php echo $_SESSION['user']?>">
                 <input type="submit" value="Enter">
