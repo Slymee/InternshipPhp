@@ -47,6 +47,6 @@ textarea{
     height: 350px;
 }
 
-.error-message{
+.message-span{
     color: red;
 }

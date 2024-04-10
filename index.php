@@ -29,9 +29,13 @@
                 <textarea name="entry_content" placeholder="Entry here"></textarea>
                 <input type="hidden" name="username" value="<?php echo $_SESSION['user']?>">
                 <input type="submit" value="Enter">
-                <span class="error-message"></span>
+                <span class="message-span"><?php if(isset($_SESSION['message'])) echo $_SESSION['message']; ?></span>
             </form>
         </div>
     </section>
 </body>
 </html>
+
+<?php
+    unset($_SESSION['message']);
+?>

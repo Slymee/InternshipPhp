@@ -7,5 +7,6 @@
     try{
         Posts::create($_POST['entry_title'], $_POST['datetime'], $_POST['entry_content'], $_POST['username']);
     }catch (Exception $e){
-        echo $e->getMessage();
+        $_SESSION['message'] = "Entry Failed: ". $e->getMessage();
+        header("Location: ../index.php");
     }
