@@ -2,7 +2,7 @@
     <div class="brand-container"><span>Diary Entry</span></div>
     <div class="navigation-list">
         <ul>
-            <li>Home</li>
+            <li><a href="./index.php" style="text-decoration: none; color: #0e39a0;">Home</a></li>
             <li>Profile</li>
             <li>About Us</li>
             <li class="dropdown">

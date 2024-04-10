@@ -95,6 +95,7 @@ class Users{
         throw new Exception('Invalid Credentials!');
     }
 
+    
     public static function changePassword($oldPassword, $newPassword, $confirmPassword, $username)
     {
         $db = new Database();
