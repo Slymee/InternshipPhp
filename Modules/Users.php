@@ -145,8 +145,63 @@ class Users{
     }
 
 
-    public static changeProfilePicture()
+    public static function changeProfilePicture($username, $file)
     {
-        
+        $db = new Database();
+        $conn = $db->getConnection();
+
+        if(!isset($file))
+        {
+            $db->closeConnection();
+            throw new Exception('File not selected!');
+        }
+
+        $file = $_FILES['image'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+        $fileType = $file['type'];
+
+        $fileExtention = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if(!in_array($fileExtention, $allowedTypes))
+        {
+            $db->closeConnection();
+            throw new Exception('Invalid file type!');
+        }
+
+        if($fileSize > (5 * 1024 * 1024))
+        {
+            $db->closeConnection();
+            throw new Exception('Image greater than 5Mb!');
+        }
+
+        $fileNewName = $_SESSION['user'] .time(). 'Profile' .'.'. $fileExtention;
+        $uploadPath = '../Storage/' . $fileNewName;
+
+        $pathForDatabase = './Storage/' . $fileNewName;
+
+
+        if (move_uploaded_file($fileTmpName, $uploadPath))
+        {
+            $columnNames = ['username', 'image_path'];
+            $columnValues = [':username', ':image_path'];
+
+            $columns = implode(", ", $columnNames);
+            $values = implode(", ", $columnValues);
+
+            $statement = $conn->prepare("INSERT INTO user_image ($columns) VALUES ($values)");
+            $statement->bindParam(':username', $username);
+            $statement->bindParam(':image_path', $pathForDatabase);
+            $statement->execute();
+
+            $db->closeConnection();
+            return true;
+        }
+        $db->closeConnection();
+        return false;
     }
 }

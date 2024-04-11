@@ -22,21 +22,25 @@
     <section class="main-container">
         <div class="user-details-container">
             <div class="profile-pic-container">
-                <img src="./Storage/cosplay.jpg" alt="" srcset="">
+                <img src="" alt="" srcset="">
             </div>
             <div class="user-details">
                 <?php echo $_SESSION['user'];?>
             </div>
             <div class="pic-utility">
                 <form action="./Partials/change-picture.php" method="post" id="picture-form" enctype="multipart/form-data">
-                    <input type="file" name="" id="file-input-button">
+                    <input type="file" name="image" id="file-input-button">
                     <input type="submit" value="Submit" id="sumbit-pic">
                 </form>
                 <button id="file-trigger-button">Upload Profile Picture</button>
             </div>
+            <span class="error-message"><?php if(isset($_SESSION['message'])) echo $_SESSION['message'];?></span>
         </div>
         <div class="profile-container">tho,ihriot</div>      
     </section>
     <script src="./Resources/js/profile.js"></script>
 </body>
 </html>
+<?php
+    unset($_SESSION['message']);
+?>
