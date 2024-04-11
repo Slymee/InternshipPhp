@@ -15,9 +15,6 @@ class Posts{
         $db = new Database();
         $conn = $db->getConnection();
 
-        // echo $entryTitle ."<br>". $dateTime ."<br>". $entryContent ."<br>". $username;
-        // die();
-
         if (empty($entryTitle) || empty($date) || empty($entryContent) || empty($username))
         {
             $db->closeConnection();

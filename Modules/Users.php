@@ -180,9 +180,12 @@ class Users{
         }
 
         $fileNewName = $_SESSION['user'] .time(). 'Profile' .'.'. $fileExtention;
+
+        // $uploadPath = dirname(__DIR__) .'/Storage/'. $fileNewName;
         $uploadPath = '../Storage/' . $fileNewName;
 
         $pathForDatabase = './Storage/' . $fileNewName;
+
 
 
         if (move_uploaded_file($fileTmpName, $uploadPath))

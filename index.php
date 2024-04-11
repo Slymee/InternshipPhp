@@ -4,6 +4,7 @@
     if(!isLoggedIn())
     {
         $_SESSION['message'] = "Please Login to continue.";
+        session_write_close();
         header('location: ./login-register.php');
     }
 ?>

@@ -3,6 +3,7 @@
     require('./Partials/check-login.php');
     if(!isLoggedIn())
     {
+        session_write_close();
         $_SESSION['message'] = "Please Login to continue.";
         header('location: ./login-register.php');
     }
