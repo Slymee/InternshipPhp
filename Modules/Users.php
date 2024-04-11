@@ -143,4 +143,10 @@ class Users{
 
         $db->closeConnection();
     }
+
+
+    public static changeProfilePicture()
+    {
+        
+    }
 }
