@@ -2,7 +2,6 @@
 namespace InternshipPhp\Modules;
 
 use Exception;
-use PDO;
 use InternshipPhp\Partials\Database;
 
 require_once('../Partials/Database.php');
@@ -26,7 +25,7 @@ class Posts{
         }
 
         $fileName = $username ."-". time() ."-". $entryTitle .".txt";
-        $filePath = 'D:\wamp64\www\InternshipPhp\Storage/'. $fileName;
+        $filePath = dirname(__DIR__). '/Storage/'. $fileName;
         file_put_contents($filePath, $entryContent);
 
 
