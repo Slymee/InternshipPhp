@@ -1,8 +1,14 @@
-<!DOCTYPE html>
 <?php 
-    session_start();
+  session_start();
+
+  if(isset($_SESSION['isLoggedIn'])
+  && isset($_SESSION['user']))
+  {
+    header('Location: ./index.php');
+  }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
