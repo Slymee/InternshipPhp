@@ -1,4 +1,7 @@
 <?php
+
+use InternshipPhp\Partials\Database;
+
     session_start();
     require('./Partials/check-login.php');
     if(!isLoggedIn())
@@ -7,6 +10,18 @@
         $_SESSION['message'] = "Please Login to continue.";
         header('location: ./login-register.php');
     }
+?>
+
+<?php
+    include('./Partials/Database.php');
+    $db = new Database();
+    $conn = $db->getConnection();
+
+    $statement = $conn->prepare("SELECT image_path FROM user_image WHERE username = :username ORDER BY uploaded_at DESC LIMIT 1");
+    $statement->bindParam(':username', $_SESSION['user']);
+    $statement->execute();
+
+    $imagePath = $statement->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +38,7 @@
     <section class="main-container">
         <div class="user-details-container">
             <div class="profile-pic-container">
-                <img src="" alt="" srcset="">
+                <img src="<?php echo $imagePath;?>" alt="" srcset="">
             </div>
             <div class="user-details">
                 <?php echo $_SESSION['user'];?>
