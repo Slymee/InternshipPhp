@@ -1,5 +1,4 @@
 <?php
-
 use InternshipPhp\Partials\Database;
 
     session_start();
@@ -12,7 +11,11 @@ use InternshipPhp\Partials\Database;
     }
 ?>
 
+
 <?php
+/**
+ * User Profile Image fetch.
+ */
     include('./Partials/Database.php');
     $db = new Database();
     $conn = $db->getConnection();
@@ -23,6 +26,19 @@ use InternshipPhp\Partials\Database;
 
     $imagePath = $statement->fetchColumn();
 ?>
+
+
+
+ <?php
+ /**
+ * User Entry Records fetch
+ */
+    $statement = $conn->prepare("SELECT id, entry_title FROM posts WHERE username = :username");
+    $statement->bindParam(':username', $_SESSION['user']);
+    $statement->execute();
+
+    $records = $statement->fetchAll(PDO::FETCH_ASSOC);
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +68,16 @@ use InternshipPhp\Partials\Database;
             </div>
             <span class="error-message"><?php if(isset($_SESSION['message'])) echo $_SESSION['message'];?></span>
         </div>
-        <div class="profile-container">tho,ihriot</div>      
+        <div class="profile-container">
+            <div><h2>My Entries</h2></div>
+            <div>
+                <ul>
+                <?php foreach( $records as $record): ?>
+                    <li><?php echo $record['entry_title'];?></li>
+                <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>      
     </section>
     <script src="./Resources/js/profile.js"></script>
 </body>
