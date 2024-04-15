@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace InternshipPhp\Modules;
 
 use Exception;
@@ -66,8 +67,6 @@ class Users{
 
         $columns = implode(", ", $columnNames);
         $values = implode(", ", $columnValues);
-
-        
 
         $statement = $conn->prepare("INSERT INTO users ($columns) VALUES ($values)");
         $statement->bindParam(':email', $email);

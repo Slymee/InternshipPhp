@@ -4,7 +4,8 @@
     session_start();
     require_once('../Modules/Users.php');
 
-    try{
+    try
+    {
         if(Users::changeProfilePicture($_SESSION['user'], $_FILES['image']))
         {
             $_SESSION['message'] = 'Picture successfully uploaded.';
@@ -13,7 +14,8 @@
             $_SESSION['message'] = 'Picture upload error.';
             header('Location: ../profile.php');
         }
-    }catch (Exception $e){
+    }catch (Exception $e)
+    {
         $_SESSION['message'] = 'Picture upload failed: '. $e->getMessage();
         header('Location: ../profile.php');
     }

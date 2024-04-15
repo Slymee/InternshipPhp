@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace InternshipPhp\Partials;
 
 use PDO;
@@ -13,12 +14,14 @@ class Database {
 
         public function __construct()
         {
-            try{
+            try
+            {
                 // $this->connection = new PDO('mysql:host='. self::DB_HOST, self::DB_USER, self::DB_PASSWORD);
                 // $this->connection->query("CREATE DATABASE IF NOT EXISTS ". self::DB_NAME);
                 $this->connection = new PDO('mysql:host='. self::DB_HOST . ';dbname='. self::DB_NAME, self::DB_USER, self::DB_PASSWORD);
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            }catch(PDOException $e){
+            }catch(PDOException $e)
+            {
                 echo "Failed to connect to database: ". $e->getMessage();
                 die();
             }

@@ -1,5 +1,6 @@
 <?php
-    function isLoggedIn(){
+    function isLoggedIn()
+    {
         if(isset($_SESSION['isLoggedIn'])
         && isset($_SESSION['user']))
         {
