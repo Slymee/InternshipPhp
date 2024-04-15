@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace InternshipPhp\Modules;
 
+use DateTime;
 use Exception;
 use InternshipPhp\Partials\Database;
 
@@ -20,6 +21,18 @@ class Posts{
         {
             $db->closeConnection();
             throw new Exception("All feilds should be filled!!");
+        }
+
+        function dateValidator($date, $format = 'Y-m-d')
+        {
+            $dateObject = DateTime::createFromFormat($format, $date);
+            return $dateObject && $dateObject->format($format) == $date;
+        }
+
+        if(!dateValidator($date))
+        {
+            $db->closeConnection();
+            throw new Exception("Invalid Date Format!!");
         }
 
         $fileName = $username ."-". time() ."-". $entryTitle .".txt";
