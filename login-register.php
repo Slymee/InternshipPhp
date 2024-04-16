@@ -23,7 +23,7 @@
     <div class="login form">
       <header>Login</header>
       <form action="./Partials/login-user.php" method="post">
-        <input type="text" placeholder="Enter your email or username" name="username_or_email">
+        <input type="text" placeholder="Enter your email or username" name="username_or_email" value="<?php if(isset($_SESSION['usernameOrEmail'])) echo $_SESSION['usernameOrEmail']?>">
         <input type="password" placeholder="Enter your password" name="password">
         <a href="#">Forgot password?</a>
         <input type="submit" class="button" value="Login">
@@ -38,8 +38,8 @@
     <div class="registration form">
       <header>Signup</header>
       <form action="./Partials/register-user.php" method="post">
-        <input type="text" placeholder="Enter your username" name="username" id="">
-        <input type="text" placeholder="Enter your email" name="email">
+        <input type="text" placeholder="Enter your username" name="username" id="" value="<?php if(isset($_SESSION['registerUsername'])) echo $_SESSION['registerUsername']; ?>">
+        <input type="text" placeholder="Enter your email" name="email" value="<?php if(isset($_SESSION['registerEmail'])) echo $_SESSION['registerEmail']; ?>">
         <input type="password" placeholder="Create a password" name="password">
         <input type="password" placeholder="Confirm your password" name="confirm_password">
         <input type="submit" class="button" value="Signup">
@@ -55,5 +55,8 @@
 </html>
 
 <?php
-    unset($_SESSION['message']);    
+    unset($_SESSION['message']);
+    unset($_SESSION['usernameOrEmail']);
+    unset($_SESSION['registerUsername']);
+    unset($_SESSION['registerEmail']);
 ?>

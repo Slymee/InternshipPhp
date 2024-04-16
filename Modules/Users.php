@@ -24,6 +24,16 @@ class Users{
         $db = new Database();
         $conn = $db->getConnection();
 
+        if(!empty($username))
+        {
+            $_SESSION['registerUsername'] = $username;
+        }
+
+        if(!empty($email))
+        {
+            $_SESSION['registerEmail'] = $email;
+        }
+
         //INPUT VALIDATION
         if (empty($username) || empty($email) || empty($password) || empty($confirmPassword))
         {
@@ -86,6 +96,11 @@ class Users{
     {
         $db = new Database();
         $conn = $db->getConnection();
+
+        if(!empty($usernameOrEmail))
+        {
+            $_SESSION['usernameOrEmail'] = $usernameOrEmail;
+        }
 
         if(empty($usernameOrEmail) || empty($password))
         {

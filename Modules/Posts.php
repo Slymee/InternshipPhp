@@ -20,7 +20,7 @@ class Posts{
         if (empty($entryTitle) || empty($date) || empty($entryContent) || empty($username))
         {
             $db->closeConnection();
-            throw new Exception("All feilds should be filled!!");
+            throw new Exception("All fields should be filled!!");
         }
 
         function dateValidator($date, $format = 'Y-m-d')
@@ -40,8 +40,8 @@ class Posts{
         file_put_contents($filePath, $entryContent);
 
 
-        $columnNames = ['username', 'entry_title', 'file_path', 'created_at'];
-        $columnValues = [':username', ':entry_title', ':file_path', ':created_at'];
+        $columnNames = ['username', 'entry_title', 'file_name', 'created_at'];
+        $columnValues = [':username', ':entry_title', ':file_name', ':created_at'];
 
         $columns = implode(", ", $columnNames);
         $values = implode(", ", $columnValues);
@@ -49,7 +49,7 @@ class Posts{
         $insertStatement = $conn->prepare("INSERT INTO posts ($columns) VALUES ($values)");
         $insertStatement->bindParam(':username', $username);
         $insertStatement->bindParam(':entry_title', $entryTitle);
-        $insertStatement->bindParam(':file_path', $filePath);
+        $insertStatement->bindParam(':file_name', $fileName);
         $insertStatement->bindParam(':created_at', $date);
 
         $insertStatement->execute();
