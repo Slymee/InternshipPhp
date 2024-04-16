@@ -1,4 +1,8 @@
 <?php
+
+use InternshipPhp\Partials\Database;
+use PDO;
+
     session_start();
     require('./Partials/check-login.php');
     if(!isLoggedIn())
@@ -7,6 +11,19 @@
         session_write_close();
         header('location: ./login-register.php');
     }
+?>
+
+<?php
+    include('./Partials/Database.php');
+    $db = new Database();
+    $conn = $db->getConnection();
+    $count = 1;
+
+    $statement =$conn->prepare("SELECT id, entry_title FROM posts WHERE username = :username");
+    $statement->bindParam(':username', $_SESSION['user']);
+    $statement->execute();
+
+    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -40,14 +57,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($rows as $row){?>
                     <tr>
-                        <td>Dom</td>
-                        <td>6000</td>
+                        <td><?php echo $count?></td>
+                        <td><?php echo $row['entry_title']?></td>
+                        <td><a href=""><button>Edit</button></a></td>
+                        <td><a href=""><button>Delete</button></a></td>
                     </tr>
-                    <tr class="active-row">
-                        <td>Melissa</td>
-                        <td>5150</td>
-                    </tr>
+                    <?php $count++; } ?>
                 </tbody>
             </table>
             </div>

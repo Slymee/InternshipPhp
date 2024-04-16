@@ -57,5 +57,9 @@ class Posts{
         $insertStatement->execute();
 
         $db->closeConnection();
+
+        unset($_SESSION['entryTitle']);
+        unset($_SESSION['date']);
+        unset($_SESSION['entryContent']);
     }
 }

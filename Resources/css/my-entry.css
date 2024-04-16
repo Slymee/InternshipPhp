@@ -46,3 +46,8 @@
     font-weight: bold;
     color: #009879;
 } */
+
+.styled-table>tbody>tr>td>a>button{
+    padding: 7px;
+    width: 100px;
+}
