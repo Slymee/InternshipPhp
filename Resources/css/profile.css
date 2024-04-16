@@ -60,15 +60,10 @@ body{
 
 .profile-container{
     padding: 10px;
-    background: #555;
     overflow: auto;
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-.profile-container>div{
-    text-align: left;
 }
 
 .error-message{

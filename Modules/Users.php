@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace InternshipPhp\Modules;
 
 use Exception;
@@ -23,34 +24,52 @@ class Users{
         $db = new Database();
         $conn = $db->getConnection();
 
+        $_SESSION['registerUsername'] = $username;
+        $_SESSION['registerEmail'] = $email;
+
         //INPUT VALIDATION
-        if (empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
+        if (empty($username) || empty($email) || empty($password) || empty($confirmPassword))
+        {
             $db->closeConnection();
             throw new Exception('All fields are required.');
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
             $db->closeConnection();
             throw new Exception('Invalid email address.');
         }
 
-        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password))
+        {
             $db->closeConnection();
             throw new Exception('Invalid password. Must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number.');
         }
 
-        if ($password != $confirmPassword){
+        if ($password != $confirmPassword)
+        {
             $db->closeConnection();
             throw new Exception('Password mismatch!!');
         }
 
+        //Check username or email exist in database
+        $usernameEmailExistSQL = "SELECT username, email FROM users WHERE username = :username OR email = :email";
+        $statement = $conn->prepare($usernameEmailExistSQL);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+
+        if($statement->fetch(PDO::FETCH_ASSOC))
+        {
+            throw new Exception("Username or Email already taken!");
+        }
+
+        //Create the user details
         $columnNames = ['username', 'email', 'password'];
         $columnValues = [':username', ':email', ':password'];
 
         $columns = implode(", ", $columnNames);
         $values = implode(", ", $columnValues);
-
-        
 
         $statement = $conn->prepare("INSERT INTO users ($columns) VALUES ($values)");
         $statement->bindParam(':email', $email);
@@ -70,6 +89,8 @@ class Users{
     {
         $db = new Database();
         $conn = $db->getConnection();
+
+        $_SESSION['usernameOrEmail'] = $usernameOrEmail;
 
         if(empty($usernameOrEmail) || empty($password))
         {
@@ -160,8 +181,8 @@ class Users{
         $fileName = $file['name'];
         $fileTmpName = $file['tmp_name'];
         $fileSize = $file['size'];
-        $fileError = $file['error'];
-        $fileType = $file['type'];
+        // $fileError = $file['error'];
+        // $fileType = $file['type'];
 
         $fileExtention = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
