@@ -15,6 +15,10 @@ class Posts{
         $db = new Database();
         $conn = $db->getConnection();
 
+        $_SESSION['entryTitle'] = $entryTitle;
+        $_SESSION['date'] = $date;
+        $_SESSION['entryContent'] = $entryContent;
+
         if (empty($entryTitle) || empty($date) || empty($entryContent) || empty($username))
         {
             $db->closeConnection();
