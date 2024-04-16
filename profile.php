@@ -33,11 +33,11 @@ use InternshipPhp\Partials\Database;
  /**
  * User Entry Records fetch
  */
-    $statement = $conn->prepare("SELECT id, entry_title FROM posts WHERE username = :username");
-    $statement->bindParam(':username', $_SESSION['user']);
-    $statement->execute();
+    // $statement = $conn->prepare("SELECT id, entry_title FROM posts WHERE username = :username");
+    // $statement->bindParam(':username', $_SESSION['user']);
+    // $statement->execute();
 
-    $records = $statement->fetchAll(PDO::FETCH_ASSOC);
+    // $records = $statement->fetchAll(PDO::FETCH_ASSOC);
  ?>
 
 <!DOCTYPE html>
@@ -68,16 +68,9 @@ use InternshipPhp\Partials\Database;
             </div>
             <span class="error-message"><?php if(isset($_SESSION['message'])) echo $_SESSION['message'];?></span>
         </div>
-        <div class="profile-container">
-            <div><h2>My Entries</h2></div>
-            <div>
-                <ul>
-                <?php foreach( $records as $record): ?>
-                    <li><?php echo $record['entry_title'];?></li>
-                <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>      
+        <!-- <div class="profile-container">
+
+        </div>       -->
     </section>
     <script src="./Resources/js/profile.js"></script>
 </body>
