@@ -10,8 +10,6 @@ require_once('../Partials/Database.php');
 
 class Posts{
 
-
-
     public static function create($entryTitle, $date, $entryContent, $username)
     {
         $db = new Database();
