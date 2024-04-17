@@ -62,4 +62,32 @@ class Posts{
         unset($_SESSION['date']);
         unset($_SESSION['entryContent']);
     }
+
+    public static function destroy($entryID)
+    {
+        $db = new Database();
+        $conn = $db->getConnection();
+
+        if(empty($entryID))
+        {
+            $db->closeConnection();
+            throw new Exception('ID field cannot be empty!!');
+        }
+
+        if(!is_numeric($entryID))
+        {
+            $db->closeConnection();
+            throw new Exception('ID must be numeric!');
+        }
+
+        $entryDeleteSQL = "DELETE FROM posts WHERE id = :entryID";
+        $statement = $conn->prepare($entryDeleteSQL);
+        $statement->bindParam(':entryID', $entryID);
+
+        if(!$statement->execute())
+        {
+            $db->closeConnection();
+            throw new Exception('Record does not exist!');
+        }
+    }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use InternshipPhp\Partials\Database;
-use PDO;
 
     session_start();
     require('./Partials/check-login.php');
@@ -43,7 +42,7 @@ use PDO;
 
         <div class="content-container">
             <div class="title-container"><span>
-                My Entry
+                <h2>My Entry</h2>
             </span></div>
 
             <div class="table-container">
@@ -61,14 +60,28 @@ use PDO;
                     <tr>
                         <td><?php echo $count?></td>
                         <td><?php echo $row['entry_title']?></td>
-                        <td><a href=""><button>Edit</button></a></td>
-                        <td><a href=""><button>Delete</button></a></td>
+                        <td><a href=""><button class="utility-button">Edit</button></a></td>
+                        <td><button class="utility-button" onclick="confirmDelete(<?php echo $row['id']?>)">Delete</button></td>
+
+                        <div class="delete-form" style="display: none;">
+                        <form action="./Partials/delete-action.php" method="post" id="entry-delete-<?php echo $row['id']?>">
+                                <input type="hidden" name="entry_delete" value="<?php echo $row['id']?>">
+                                <input type="submit" value="submit">
+                            </form>
+                        </div>
+
                     </tr>
                     <?php $count++; } ?>
                 </tbody>
             </table>
             </div>
+            <span class="message-span"><?php if(isset($_SESSION['message'])) echo $_SESSION['message']?></span>
         </div>
     </section>
+    <script src="./Resources/js/my-entries.js"></script>
 </body>
 </html>
+
+<?php
+    unset($_SESSION['message']);
+?>

@@ -47,7 +47,11 @@
     color: #009879;
 } */
 
-.styled-table>tbody>tr>td>a>button{
+.utility-button{
     padding: 7px;
     width: 100px;
+}
+
+.message-span{
+    color: red;
 }
