@@ -59,7 +59,7 @@ use InternshipPhp\Partials\Database;
                     <?php foreach($rows as $row){?>
                     <tr>
                         <td><?php echo $count?></td>
-                        <td><?php echo $row['entry_title']?></td>
+                        <td><a href="./entry-content.php?id=<?php echo $row['id']?>"><?php echo $row['entry_title']?></a></td>
                         <td><a href=""><button class="utility-button">Edit</button></a></td>
                         <td><button class="utility-button" onclick="confirmDelete(<?php echo $row['id']?>)">Delete</button></td>
 
@@ -83,5 +83,6 @@ use InternshipPhp\Partials\Database;
 </html>
 
 <?php
+    $db->closeConnection();
     unset($_SESSION['message']);
 ?>
