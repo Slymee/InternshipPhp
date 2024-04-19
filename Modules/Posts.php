@@ -89,5 +89,12 @@ class Posts{
             $db->closeConnection();
             throw new Exception('Record does not exist!');
         }
+
+        $db->closeConnection();
+    }
+
+    public static function edit($entryID)
+    {
+        echo $entryID;
     }
 }

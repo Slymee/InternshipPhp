@@ -30,7 +30,7 @@
                     <span class="form-title">Diary Entry</span>
                 </div>
                 <form action="./Partials/create-entry.php" method="post">
-                    <input type="text" placeholder="Entry" name="entry_title" value="<?php if(isset($_SESSION['entryTitle'])) echo $_SESSION['entryTitle']; ?>">
+                    <input type="text" placeholder="Entry Title" name="entry_title" value="<?php if(isset($_SESSION['entryTitle'])) echo $_SESSION['entryTitle']; ?>">
                     <input type="date" name="date" id="" value="<?php if(isset($_SESSION['date'])) echo $_SESSION['date']; ?>">
                     <textarea name="entry_content" placeholder="Entry here"><?php if(isset($_SESSION['entryContent'])) echo $_SESSION['entryContent']; ?></textarea>
                     <input type="hidden" name="username" value="<?php echo $_SESSION['user']?>">

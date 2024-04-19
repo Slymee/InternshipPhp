@@ -18,14 +18,11 @@ use InternshipPhp\Partials\Database;
         $_SESSION['message'] = "Page not found!";
         header('Location: ./my-entries.php');
     }
-?>
 
-<?php
     include('./Partials/Database.php');
     $db = new Database();
     $conn = $db->getConnection();
-    
-    // $selectSQL = "SELECT username, entry_title, file_name, created_at FROM posts WHERE id = :id AND username = :username";
+
     $columns = ['username', 'entry_title', 'file_name', 'created_at'];
     $selectSQL = "SELECT ". implode(', ', $columns) ." FROM posts WHERE id = :id AND username = :username";
     $statement = $conn->prepare($selectSQL);
@@ -51,33 +48,33 @@ use InternshipPhp\Partials\Database;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Resources/css/nav-bar.css">
     <link rel="stylesheet" href="./Resources/css/side-bar.css">
-    <link rel="stylesheet" href="./Resources/css/entry-content.css">
-    <title>Diary Entry - <?php echo $row['entry_title'];?></title>
+    <link rel="stylesheet" href="./Resources/css/entries.css">
+    <title>Diary Entry - Edit Entry</title>
 </head>
 <body>
     <?php include('./Components/navbar.php');?>
-    
     <section class="main-container">
         <?php include('./Components/sidebar.php');?>
 
         <div class="content-container">
-            <div>
-                <h2>Entry Title: <span class="entry-title-span"><?php echo $row['entry_title'];?></span></h2>
-                <h2>Entry Date: <span class="entry-title-span"><?php echo $row['created_at'];?></span></h2>
-            </div>
-
-            <div class="entry-content-container">
-                <?php 
-                    $filePath = __DIR__ . '/Storage/' . $row['file_name'];
-                    $content = file_get_contents($filePath);
-                    echo $content;
-                ?>
+            <div class="form-container">
+                <div class="form-title-container">
+                    <span class="form-title">Diary Entry Edit</span>
+                </div>
+                <form action="./Partials/edit-action.php" method="post">
+                    <div>Entry Date: <?php echo $row['created_at'];?></div>
+                    <input type="text" placeholder="Entry Title" name="entry_title" value="<?php echo $row['entry_title']?>">
+                    <textarea name="entry_content" placeholder="Entry Here"><?php 
+                            $filePath = __DIR__ . '/Storage/' . $row['file_name'];
+                            $content = file_get_contents($filePath);
+                            echo $content;
+                        ?></textarea>
+                    <input type="hidden" name="entry_id" value="<?php echo $_GET['id']?>">
+                    <input type="submit" value="Enter">
+                    <span class="message-span"><?php if(isset($_SESSION['message'])) echo $_SESSION['message']; ?></span>
+                </form>
             </div>
         </div>
     </section>
 </body>
 </html>
-
-<?php
-    $db->closeConnection();
-?>
