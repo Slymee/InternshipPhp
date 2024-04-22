@@ -93,8 +93,40 @@ class Posts{
         $db->closeConnection();
     }
 
-    public static function edit($entryID)
+    public static function edit($entryID, $entryTitle, $entryContent)
     {
-        echo $entryID;
+        $db = new Database();
+        $conn = $db->getConnection();
+
+        if(empty($entryID) || empty($entryTitle))
+        {
+            $db->closeConnection();
+            throw new Exception('Required fields cannot be empty!');
+        }
+
+        $fileNameSQL = "SELECT file_name FROM posts WHERE id = :id";
+        $statement = $conn->prepare($fileNameSQL);
+        $statement->bindParam(':id', $entryID);
+        $statement->execute();
+
+        $fileName = $statement->fetchColumn();
+        if($filePath = dirname(__DIR__) .'/Storage/'. $fileName)
+        {
+            file_put_contents($filePath, '');
+            file_put_contents($filePath, $entryContent);
+        }
+        else
+        {
+            $db->closeConnection();
+            throw new Exception("Content edit failed!");
+        }
+
+        $updateSQL = "UPDATE posts SET entry_title = :entry_title WHERE id = :id";
+        $statement = $conn->prepare($updateSQL);
+        $statement->bindParam(':entry_title', $entryTitle);
+        $statement->bindParam(':id', $entryID);
+        $statement->execute();
+
+        $db->closeConnection();
     }
 }

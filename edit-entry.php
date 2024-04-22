@@ -78,3 +78,6 @@ use InternshipPhp\Partials\Database;
     </section>
 </body>
 </html>
+<?php
+    unset($_SESSION['message']);
+?>
