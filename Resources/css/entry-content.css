@@ -1,0 +1,19 @@
+.main-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-container{
+    padding: 10px;
+    width: 100%;
+    background: #ececec;
+}
+
+.entry-title-span{
+    color: rgb(128, 24, 197);
+}
+
+.entry-content-container{
+    padding: 10px;
+    font-size: 130%;
+}
